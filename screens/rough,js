@@ -1,0 +1,298 @@
+               (  
+                   <CardItem cardBody style={gstyles.cardBody} >
+                    {/* email Input */}
+                        <Item bordered fixedLabel  style={{width:'95%',marginTop:20,alignSelf:'center'}}>
+                        <Icon style={gstyles.inputicn} name='user' type='AntDesign'/>
+                          <TextInput 
+                          value={email}
+                          onChangeText={(e)=>setEmail(e)}
+                          keyboardType='email-address' 
+                          autoCapitalize='none'
+                          autoCompleteType='email'
+                          enablesReturnKeyAutomatically={true}
+                          importantForAutofill='yes'
+                          placeholder="Enter your email"
+                          selectionColor="lightgray"
+                          returnKeyLabel='Next'
+                          returnKeyType='next'
+                          style={{width:'90%'}}
+                          />
+                          </Item>
+
+                        {/* Pass Input */}
+                        <Item bordered fixedLabel  style={{width:'95%',marginTop:30,marginBottom:30,alignSelf:'center'}}>
+                          <Icon style={gstyles.inputicn} name='key' type='AntDesign'/>
+                          <TextInput 
+                          value={pass}
+                          onChangeText={(e)=>setPass(e)}
+                          autoCapitalize='none'
+                          autoCompleteType='password'
+                          enablesReturnKeyAutomatically={true}
+                          importantForAutofill='yes'
+                          placeholder="Enter your Password"
+                          secureTextEntry={true}
+                          selectionColor="lightgray"
+                          returnKeyLabel='Login'
+                          returnKeyType='send'
+                          style={{width:'90%'}}
+                          />
+                          </Item>
+
+                        <Button dark 
+                        rounded
+                        full
+                        androidRippleColor="red"
+                        style={gstyles.socialloginbtn}
+                        onPress={()=>{
+                           if(email !== '' && pass !==""){
+                            
+                            props.loginemail(email,pass,props,setload)
+                           }else if(pass ===""){
+                               return Alert.alert('Empty Password Error','Password Field is Empty')
+                           }else if(email ===""){
+                            return Alert.alert('Empty Email Error','Email Field is Empty')
+                        }else{
+                            return Alert.alert('Empty Email/Pass Error','Email & Pass Fields are Empty')
+                        }
+                        }
+                        }
+                        >
+                            <Text style={gstyles.sociallogintxt}>Sign in</Text>
+                        </Button>
+
+                        <Text style={{margin:15,fontWeight:'100',fontSize:13,marginTop:15,alignSelf:'center'}}>OR</Text> 
+                        
+
+                        <Item style={{borderWidth:0,borderColor:'transparent',marginTop:7}}>
+                        <Text style={{fontWeight:'100',fontSize:11}}>Not yet registered? </Text>
+                        <TouchableOpacity activeOpacity={0} onPress={()=>{props.navigation.navigate('Sign Up')}}><Text style={{fontSize:12,color:'royalblue'}}>Sign up</Text></TouchableOpacity>
+                        </Item>
+                    </CardItem>
+               )
+                </Card>     
+   
+
+       <Card style={gstyles.card}>
+          <CardItem bordered  header style={{justifyContent:'center',alignItems:'center' ,flexDirection:'column'}}>
+              <ImageBackground source={{uri:photo}} style={{width:'100%',height:150}} resizeMethod='auto' resizeMode='cover'>  
+               
+              <TouchableOpacity  style={{alignSelf:'flex-end',backgroundColor:'white',borderRadius:10,padding:3}} onPress={()=>{selectImage()}}><Icon name='camera-retro' type="FontAwesome" style={{color:'black',fontSize:20,textAlign:'center'}} /></TouchableOpacity>
+              {isImgLoading? <ActivityIndicator
+             color='red'
+                size='large'
+                style={{height:100,width:100,backgroundColor:'lightgray',alignSelf:'center', borderWidth:2.5,borderColor:'white'}}
+                /> :
+              <Thumbnail large style={{height:100,width:100,resizeMode:'contain', borderWidth:2.5,borderColor:'white',alignSelf:'center'}} source={{uri:photo}}/>
+              }
+              <Separator style={{width:'30%',height:2,backgroundColor:'transparent',margin:4,}}/>
+              </ImageBackground>
+          </CardItem>
+        <CardItem bordered  cardBody style={{flexDirection:'column',justifyContent:'space-around',alignItems:'center'}}>
+        {/* name */}
+        <Item rounded style={{marginBottom:5,marginTop:5}}>
+                <Icon style={gstyles.inputicn} name='user' type='AntDesign'/>
+                  <TextInput 
+                  ref={nameRef}
+                  value={name}
+                  editable ={editableStatusna}
+                  onChangeText={(e)=>{setuserx({ ...userx, name : e})}}
+                  keyboardType='name-phone-pad'
+                  importantForAutofill='auto' 
+                  autoCapitalize="words"
+                  autoCorrect={true}
+                  autoCompleteType='name'
+                  enablesReturnKeyAutomatically={true}
+                  placeholder="Enter your name"
+                  selectionColor="lightgray"
+                  returnKeyLabel='Next'
+                  returnKeyType='next'
+                  style={{width:'75%'}}
+                  onEndEditing ={()=>{setEditableStatusna(false)}}
+                  />
+                  <TouchableOpacity onPress={()=>{
+                    setEditableStatusna(true)
+                    nameRef.current.focus()
+                    }}>
+
+                  <Icon style={gstyles.inputicnr} name='plus' type='FontAwesome'/>
+   
+                  </TouchableOpacity>        
+         </Item>
+         <Separator style={{height:10,backgroundColor:'transparent'}}/>
+         {/* age */}
+         <Item rounded style={{marginBottom:5}}>
+                <Icon style={gstyles.inputicn} name='chevron-triple-up' type='MaterialCommunityIcons'/>
+                  <TextInput 
+                  ref={ageRef}
+                  value={age}
+                  onChangeText={(e)=>{setuserx({...userx,age:e})}}
+                  editable ={editableStatusag}
+                  keyboardType='decimal-pad' 
+                  enablesReturnKeyAutomatically={true}
+                  importantForAutofill='auto'
+                  placeholder="Enter your Age"
+                  selectionColor="lightgray"
+                  returnKeyLabel='Next'
+                  returnKeyType='next'
+                  style={{width:'75%'}}
+                  onEndEditing ={()=>{setEditableStatusag(false)}}
+                  />
+
+                  
+                  <TouchableOpacity onPress={()=>{
+                    setEditableStatusag(true)
+                    ageRef.current.focus()
+                 }}>
+                  <Icon style={gstyles.inputicnr} name='plus' type='FontAwesome'/>
+   
+                  </TouchableOpacity>        
+         </Item>
+         <Separator style={{height:5,backgroundColor:'transparent'}}/>
+         {/* gender */}
+         <Item rounded style={{marginBottom:5}}>
+                <Icon style={gstyles.inputicn} name='transgender-outline' type='Ionicons'/>
+                  <TextInput 
+                  maxLength={11}
+                  ref={genderRef}
+                  value={gender}
+                  editable ={editableStatusgd}
+                  onChangeText={(e)=>{setuserx({...userx,gender:e})}}
+                  keyboardType='email-address' 
+                  autoCapitalize='words'
+                  enablesReturnKeyAutomatically={true}
+                  placeholder="Enter your Gender"
+                  selectionColor="lightgray"
+                  returnKeyLabel='Next'
+                  returnKeyType='next'
+                  style={{width:'75%'}}
+                  onEndEditing ={()=>{setEditableStatusgd(false)}}
+                  />
+                  
+                  <TouchableOpacity onPress={()=>{
+                    setEditableStatusgd(true)
+                    genderRef.current.focus()
+
+                  }}>
+
+                  <Icon style={gstyles.inputicnr} name='plus' type='FontAwesome'/>
+   
+                  </TouchableOpacity>        
+
+                  </Item>
+          <Separator style={{height:5,backgroundColor:'transparent'}}/>
+          {/* Location */}
+          <Item rounded style={{marginBottom:5}}>
+                <Icon style={gstyles.inputicn} name='location-pin' type='SimpleLineIcons'/>
+                  <TextInput 
+                  ref={locationRef}
+                  value={location}
+                  editable ={editableStatusloc}
+                  onChangeText={(e)=>{setuserx({...userx,location:e})}}
+                  keyboardType='email-address' 
+                  autoCapitalize='words'
+                  autoCompleteType='street-address'
+                  importantForAutofill='yes'
+                  enablesReturnKeyAutomatically={true}
+                  placeholder="Area City Country"
+                  selectionColor="lightgray"
+                  returnKeyLabel='Next'
+                  returnKeyType='next'
+                  style={{width:'75%'}}
+                  onEndEditing ={()=>{setEditableStatusloc(false)}}
+                  />
+                  
+                  <TouchableOpacity onPress={()=>{
+                    setEditableStatusloc(true)
+                    locationRef.current.focus()
+
+                  }}>
+
+                  <Icon style={gstyles.inputicnr} name='plus' type='FontAwesome'/>
+   
+                  </TouchableOpacity>        
+
+                  </Item>
+          <Separator style={{height:5,backgroundColor:'transparent'}}/>
+        {/* mail */}
+        <Item rounded style={{marginBottom:5}}>
+                <Icon style={gstyles.inputicn} name='mail' type='AntDesign'/>
+                  <TextInput 
+                  ref={emailRef}
+                  value={email}
+                  editable ={editableStatusem}
+                  keyboardType='name-phone-pad' 
+                  autoCapitalize='none'
+                  autoCompleteType='email'
+                  enablesReturnKeyAutomatically={true}
+                  importantForAutofill='auto'
+                  placeholder="Enter your email"
+                  selectionColor="lightgray"
+                  returnKeyLabel='Next'
+                  returnKeyType='next'
+                  style={{width:'75%'}}
+                  onEndEditing ={()=>{setEditableStatusem(false)}}
+                  />
+                  
+                  <TouchableOpacity onPress={()=>{
+                    setEditableStatusem(false)
+                    emailRef.current.focus()
+
+                  }}>
+
+                  <Icon style={gstyles.inputicnr} name='plus' type='FontAwesome'/>
+   
+                  </TouchableOpacity>        
+
+                  </Item>
+        <Separator style={{height:5,backgroundColor:'transparent'}}/>
+        {/* phone */}
+        <Item rounded style={{marginBottom:5}}>
+         <Icon style={gstyles.inputicn} name='phone' type='AntDesign'/>
+         <TextInput 
+         maxLength={13}
+          ref={phoneRef}
+          value={phone}
+          onChangeText={(e)=>{setuserx({...userx,phone:e})}}
+          keyboardType='phone-pad' 
+          editable ={editableStatusph}
+          autoCapitalize='none'
+          autoCompleteType='tel'
+          enablesReturnKeyAutomatically={true}
+          importantForAutofill='auto'
+          placeholder="+92-xxx-xxxxxxx"
+          selectionColor="lightgray"
+          returnKeyLabel='Next'
+          returnKeyType='next'
+          style={{width:'75%'}}
+          onEndEditing ={()=>{setEditableStatusph(false)}}
+          />
+                  
+                  
+          <TouchableOpacity onPress={()=>{
+          setEditableStatusph(true)
+          phoneRef.current.focus()
+          }}>
+          
+          <Icon style={gstyles.inputicnr} name='plus' type='FontAwesome'/>
+          </TouchableOpacity>        
+          </Item>
+          <Separator style={{height:5,backgroundColor:'transparent'}}/>
+          </CardItem>
+
+        <CardItem bordered footer style={gstyles.cardBody} >
+          <CardItem style={{flexDirection:'column',width:"100%"}}>
+            <Button dark 
+            rounded
+            full                       
+          disabled={((photo === null || photo === '') || (age === null|| age === '') || (name === null || name === '') || (location === '' || location === null || (email === null || email === '') || (phone === null || phone === ''||phone.length > 13 )||(gender !== 'M' && gender !== 'm' && gender !== 'Male'  &&  gender !== 'F' && gender !== 'f' && gender !== 'Female' ))? true :false)}
+          androidRippleColor="red"
+            style={gstyles.socialloginbtn}
+            onPress={()=>{
+             props.db(userx,props,setload) }}
+            >
+                <Text style={gstyles.sociallogintxt}>Update Profile</Text>
+            </Button>
+         </CardItem>
+        </CardItem>
+    </Card>
+    
